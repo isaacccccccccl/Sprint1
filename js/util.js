@@ -53,7 +53,7 @@ function renderCell(location, value) {
 }
 
 function countNegs(cellI, cellJ, mat) {
-    console.log('index ', cellI, cellJ)
+    // console.log('index ', cellI, cellJ)
     
     if (mat[cellI][cellJ].isMine === true) return null
     var count = 0
@@ -74,24 +74,24 @@ function countNegs(cellI, cellJ, mat) {
     return count
 }
 
-// function showModal(isVictory) {
-//     // console.log('hi modal')
-//     const victory = 'You Win'
-//     const notVictory = 'You Lose'
-//     const msg = (isVictory) ? victory : notVictory
+function showModal(isVictory) {
+    // console.log('hi modal')
+    const victory = 'You Win'
+    const notVictory = 'You Lose'
+    const msg = (isVictory) ? victory : notVictory
 
-//     var elSpan = document.querySelector('.modal span')
-//     var elModal = document.querySelector('.modal')
-//     elSpan.innerText = msg
+    var elSpan = document.querySelector('.modal span')
+    var elModal = document.querySelector('.modal')
+    elSpan.innerText = msg
 
-//     elModal.style.display = 'block'
-//     console.log(elModal)
-// }
+    elModal.style.display = 'block'
+    console.log(elModal)
+}
 
-// function HideModal() {
-//     var elModal = document.querySelector('.modal')
-//     elModal.style.display = 'none'
-// }
+function HideModal() {
+    var elModal = document.querySelector('.modal')
+    elModal.style.display = 'none'
+}
 
 
 function getRandomColor() {
@@ -110,9 +110,9 @@ function emptyCells() {
     var emptyCells = []
 
 
-    for (var i = 1; i < gBoard.length - 1; i++) {
-        for (var j = 1; j < gBoard[0].length - 1; j++) {
-            var currCell = gBoard[i][j]
+    for (var i = 1; i < gBoardObject.length - 1; i++) {
+        for (var j = 1; j < gBoardObject[0].length - 1; j++) {
+            var currCell = gBoardObject[i][j]
 
             if (currCell.isMine === false) {
                 emptyCells.push({ i, j })
@@ -132,11 +132,28 @@ function getRandomInt(min, max) {
 }
 
 
-
-
-
 function addSound() {
     var audio = new Audio('../sound/ball-collected.mp3')
     audio.play()
 }
 
+function startTimer(){
+    gStartTime = Date.now()
+    clearInterval(gTimerInterval)
+    gTimerInterval = setInterval(timerTick, 67)
+}
+
+function stopTimer(){
+    gStartTime = 0
+    clearInterval(gTimerInterval)
+    document.querySelector('.timer').innerHTML = '00 : 00'
+}
+
+function timerTick() {
+    var timePassed = Date.now() - gStartTime
+    var millisecs = String(timePassed % 1000).padStart(3, '0')
+    var secs = parseInt(timePassed / 1000)
+    
+    var strToDisplay = `${secs} : ${millisecs}`
+    document.querySelector('.timer').innerHTML = '' + strToDisplay
+}
