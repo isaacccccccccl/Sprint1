@@ -1,0 +1,31 @@
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.board td {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    transition: 0.5s;
+    border: 1px solid black;
+}
+
+.board td:hover {
+    background-color: lightsalmon;
+}
+
+td.occupied {
+    background-color: lightgray;
+}
+
+.hide {
+    background-color: gray;
+    cursor: pointer;
+}
+
+.footer {
+    background-color: grey;
+    text-align: center;
+}
