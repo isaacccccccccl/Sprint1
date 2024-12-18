@@ -36,7 +36,7 @@ function renderBoard(mat) {
             const cell = mat[i][j]
             const className = `cell cell-${i}-${j}`
 
-            strHTML += `<td class="${className} hide" data-i="${i}" data-j="${j}" onclick="onCellClicked(this, ${i}, ${j})"></td>`
+            strHTML += `<td class="${className} hide" data-i="${i}" data-j="${j}" onmousedown="onCellClicked(event,this,${i}, ${j})"></td>`
         }
         strHTML += '</tr>'
     }
@@ -63,10 +63,9 @@ function countNegs(cellI, cellJ, mat) {
         for (var j = cellJ - 1; j <= cellJ + 1; j++) {
             if (i === cellI && j === cellJ) continue
             if (j < 0 || j >= mat[i].length) continue
-            // console.log('i,j', i, j, mat[i][j], mat[i][j].isMine)
             if (mat[i][j].isMine === true) {
                 count++
-            } else {
+            } else if(mat[i][j].isShown === false) {
                 gNegs.push({i,j})
             }
         }
